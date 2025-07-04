@@ -1,0 +1,163 @@
+--- 1. Loading Data ---
+Data loaded successfully.
+First 5 rows of the dataset:
+  applicantId state  gender  ...    debts loan_type loan_decision_type
+0  004NZMX60E    CA    Male  ...  2000.00  Personal           Approved
+1  004NZMX60E    CA    Male  ...  3013.82      Auto           Approved
+2  017STAOLDV    OH  Female  ...  1000.00    Credit           Approved
+3  017WEFEN7S    OH    Male  ...  2099.00      Home           Approved
+4  01FSKXYCRD    FL    Male  ...  1000.00      Home           Approved
+
+[5 rows x 12 columns]
+
+Dataset Info:
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 114 entries, 0 to 113
+Data columns (total 12 columns):
+ #   Column              Non-Null Count  Dtype
+---  ------              --------------  -----
+ 0   applicantId         114 non-null    object
+ 1   state               114 non-null    object
+ 2   gender              114 non-null    object
+ 3   age                 114 non-null    int64
+ 4   race                114 non-null    object
+ 5   marital_status      114 non-null    object
+ 6   occupation          114 non-null    object
+ 7   credit_score        114 non-null    int64
+ 8   income              114 non-null    float64
+ 9   debts               114 non-null    float64
+ 10  loan_type           114 non-null    object
+ 11  loan_decision_type  114 non-null    object
+dtypes: float64(2), int64(2), object(8)
+memory usage: 10.8+ KB
+
+--- 2. Data Preprocessing ---
+
+Checking for missing values:
+applicantId           0
+state                 0
+gender                0
+age                   0
+race                  0
+marital_status        0
+occupation            0
+credit_score          0
+income                0
+debts                 0
+loan_type             0
+loan_decision_type    0
+dtype: int64
+
+Missing values after handling:
+applicantId           0
+state                 0
+gender                0
+age                   0
+race                  0
+marital_status        0
+occupation            0
+credit_score          0
+income                0
+debts                 0
+loan_type             0
+loan_decision_type    0
+dtype: int64
+
+Categorical features: ['applicantId', 'state', 'gender', 'race', 'marital_status', 'occupation', 'loan_type', 'loan_decision_type']
+Numerical features: ['age', 'credit_score', 'income', 'debts']
+
+'applicantId' column removed.
+
+Applying Label Encoding for categorical features...
+  - Encoded 'state'. Mapping: {'AK': np.int64(0), 'AL': np.int64(1), 'AR': np.int64(2), 'CA': np.int64(3), 'CO': np.int64(4), 'DC': np.int64(5), 'FL': np.int64(6), 'GA': np.int64(7), 'IA': np.int64(8), 'IL': np.int64(9), 'IN': np.int64(10), 'KS': np.int64(11), 'KY': np.int64(12), 'MA': np.int64(13), 'MD': np.int64(14), 'MI': np.int64(15), 'MO': np.int64(16), 'MT': np.int64(17), 'NJ': np.int64(18), 'NM': np.int64(19), 'NV': np.int64(20), 'NY': np.int64(21), 'OH': np.int64(22), 'OK': np.int64(23), 'OR': np.int64(24), 'PA': np.int64(25), 'RI': np.int64(26), 'SC': np.int64(27), 'TN': np.int64(28), 'TX': np.int64(29), 'UT': np.int64(30), 'VA': np.int64(31), 'WA': np.int64(32), 'WI': np.int64(33)}
+  - Encoded 'gender'. Mapping: {'Female': np.int64(0), 'Male': np.int64(1)}
+  - Encoded 'race'. Mapping: {'American Indian or Alaska Native': np.int64(0), 'Asian': np.int64(1), 'Black or African American': np.int64(2), 'Native Hawaiian or Other Pacific Islander': np.int64(3), 'No co-applicant': np.int64(4), 'Not applicable': np.int64(5), 'White': np.int64(6)}
+  - Encoded 'marital_status'. Mapping: {'Divorced': np.int64(0), 'Married': np.int64(1), 'Single': np.int64(2)}
+  - Encoded 'occupation'. Mapping: {'Accout': np.int64(0), 'Business': np.int64(1), 'IT': np.int64(2), 'Manager': np.int64(3), 'NYPD': np.int64(4)}
+  - Encoded 'loan_type'. Mapping: {'Auto': np.int64(0), 'Credit': np.int64(1), 'Home': np.int64(2), 'Personal': np.int64(3)}
+
+Encoding target variable 'loan_decision_type'...
+  - Encoded 'loan_decision_type'. Mapping: {'Approved': np.int64(0), 'Denied': np.int64(1), 'Withdrawn': np.int64(2)}
+
+E:\Bank Loan Analysis\loan_prediction.py:34: FutureWarning: A value is trying to be set on a copy of a DataFrame or Series through chained assignment using an inplace method.
+The behavior will change in pandas 3.0. This inplace method will never work because the intermediate object on which we are setting values always behaves as a copy.
+
+For example, when doing 'df[col].method(value, inplace=True)', try using 'df.method({col: value}, inplace=True)' or df[col] = df[col].method(value) instead, to perform the operation inplace on the original object.
+
+
+  df[column].fillna(df[column].mode()[0], inplace=True)
+
+  df[column].fillna(df[column].mean(), inplace=True)
+Shape of X (features): (114, 10)
+Shape of y (target): (114,)
+
+First 5 rows of X after encoding:
+   state  gender  age  race  ...  credit_score       income    debts  loan_type
+0      3       1   36     4  ...           710  9371.333333  2000.00          3
+1      3       1   36     4  ...           720  9371.333333  3013.82          0
+2     22       0   34     6  ...           720  9010.250000  1000.00          1
+3     22       1   48     4  ...           670  6538.000000  2099.00          2
+4      6       1   32     6  ...           720  8679.416667  1000.00          2
+
+[5 rows x 10 columns]
+
+Applying Standard Scaling for numerical features...
+Standard Scaling applied.
+
+First 5 rows of X after scaling:
+   state  gender       age  race  ...  credit_score    income     debts  loan_type
+0      3       1 -0.201729     4  ...      0.180335  0.009494 -0.436179          3
+1      3       1 -0.201729     4  ...      0.307552  0.009494  0.158475          0
+2     22       0 -0.341955     6  ...      0.307552 -0.092361 -1.022726          1
+3     22       1  0.639629     4  ...     -0.328532 -0.789740 -0.378110          2
+4      6       1 -0.482182     6  ...      0.307552 -0.185684 -1.022726          2
+
+[5 rows x 10 columns]
+
+Applying PCA for dimensionality reduction...
+Original number of features: 10
+Number of features after PCA (components explaining 95% variance): 3
+Explained variance ratio by each component: [0.88069113 0.04703646 0.02379565]
+Cumulative explained variance: 0.9515232422360496
+
+--- 3. Model Building ---
+
+Splitting data into training and testing sets (70-30 ratio)...
+Shape of X_train: (79, 3)
+Shape of X_test: (35, 3)
+Shape of y_train: (79,)
+Shape of y_test: (35,)
+
+Initializing and training Gaussian Naive Bayes classifier...
+Model training complete.
+
+Performing 5-fold Cross-Validation...
+Cross-validation scores: [0.60869565 0.60869565 0.47826087 0.60869565 0.63636364]
+Mean cross-validation accuracy: 0.5881
+Standard deviation of cross-validation accuracy: 0.0560
+
+--- 4. Evaluation ---
+
+Accuracy Score on Test Set: 0.6000
+
+Confusion Matrix:
+[[21  0  0]
+ [10  0  0]
+ [ 4  0  0]]
+
+Classification Report (Precision, Recall, F1 Score):
+              precision    recall  f1-score   support
+
+    Approved       0.60      1.00      0.75        21
+      Denied       0.00      0.00      0.00        10
+   Withdrawn       0.00      0.00      0.00         4
+
+    accuracy                           0.60        35
+   macro avg       0.20      0.33      0.25        35
+weighted avg       0.36      0.60      0.45        35
+
+
+--- Project Complete ---
+The model has been trained and evaluated. The metrics above indicate its performance.
+
+Process finished with exit code 0
